@@ -14,6 +14,9 @@ use \App\Models\BoardCard;
 use \App\Models\CardTag;
 use \App\Models\CardTask;
 use \App\Models\Comment;
+use \App\Models\SharedFiles;
+
+use Validator;
 
 class CardController extends Controller
 {
@@ -77,6 +80,7 @@ class CardController extends Controller
             "label" => $this->cardTag->getCardTag($request->get("cardId")),
             "task" => $this->cardTask->getCardTasks($request->get("cardId")),
             "comment" => $this->comment->getCardComment($request->get("cardId")),
+            "sharedFiles" => SharedFiles::all(),
         ];     
     }
 
@@ -96,4 +100,37 @@ class CardController extends Controller
             "cardId" => $request->get("cardId"),
         ];
     }
+
+    public function uploadFile(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'file' => 'required',
+        ]);
+
+        if ($validator->passes()) {
+            foreach($request->file('file') as $attachment){
+                $attachments[] = [
+                    $fileName = $attachment->getClientOriginalName(),
+  
+
+                    $fileLoc= $attachment->move(public_path('SharedFiles/'), $fileName),
+  
+                    $sf = SharedFiles::create([
+                         'card_ref' => $request['cardID'],
+                         'file_name' => $fileName,
+                         'file_path' => $fileLoc
+                    ]),
+                  
+               ];
+             }
+             
+        }
+        else{
+            return response()->json(['error'=>$validator->errors()->all()]);
+        }
+
+        
+    }
+    
+    
 }

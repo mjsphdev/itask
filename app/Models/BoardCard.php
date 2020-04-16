@@ -72,4 +72,5 @@ class BoardCard extends Model
         ->groupBy('board_card.id')
         ->get();
     }
+
 }

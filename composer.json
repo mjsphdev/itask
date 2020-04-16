@@ -1,7 +1,7 @@
 {
-    "name": "Dingo - Project Management",
-    "description": "A full-featured personal project management tool with task boards.",
-    "keywords": ["dingo", "team", "managment", "laravel"],
+    "name": "iTask",
+    "description": "A project management tool.",
+    "keywords": ["team", "managment", "laravel"],
     "license": "MIT",
     "type": "project",
     "require": {

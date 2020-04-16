@@ -2567,14 +2567,14 @@ output {
           transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 .form-control::-moz-placeholder {
-  color: #999;
+  color: #747474;
   opacity: 1;
 }
 .form-control:-ms-input-placeholder {
-  color: #999;
+  color: #747474;
 }
 .form-control::-webkit-input-placeholder {
-  color: #999;
+  color: #747474;
 }
 .form-control::-ms-expand {
   background-color: transparent;
@@ -2876,25 +2876,25 @@ select[multiple].input-lg {
 .has-error.checkbox label,
 .has-error.radio-inline label,
 .has-error.checkbox-inline label {
-  color: #a94442;
+  color: #f5455c;
 }
 .has-error .form-control {
-  border-color: #a94442;
+  border-color: #f5455c;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
 }
 .has-error .form-control:focus {
-  border-color: #843534;
+  border-color: #f5455c;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
 }
 .has-error .input-group-addon {
-  color: #a94442;
+  color: #f5455c;
   background-color: #f2dede;
-  border-color: #a94442;
+  border-color: #f5455c;
 }
 .has-error .form-control-feedback {
-  color: #a94442;
+  color: #f5455c;
 }
 .has-feedback label ~ .form-control-feedback {
   top: 25px;
@@ -5053,15 +5053,15 @@ a.thumbnail.active {
   color: inherit;
 }
 .alert-success {
-  color: #3c763d;
-  background-color: #dff0d8;
-  border-color: #d6e9c6;
+  color: #278142;
+  background-color: #c5ffdd;
+  border-color: #c5ffdd;
 }
 .alert-success hr {
-  border-top-color: #c9e2b3;
+  border-top-color: #c5ffdd;
 }
 .alert-success .alert-link {
-  color: #2b542c;
+  color: #278142;
 }
 .alert-info {
   color: #31708f;

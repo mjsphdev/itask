@@ -1,5 +1,5 @@
 <div class="row user-profile-intro">
-    <div class="col-lg-12">
+    <div class="col-lg-7">
     	<div class="media">
     		<div class="col-lg-offset-4">
         		<div class="pull-left">
@@ -7,8 +7,8 @@
         		</div>
         		<div class="media-body" style="padding-left: 20px;">
         			<h4 class="media-heading" style="text-transform: capitalize; font-weight: bold;">{{ Auth::user()->name }}</h4>
-                    <p><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> {{ Auth::user()->email }}</p>
-                    <p><span class="glyphicon glyphicon-time" aria-hidden="true"></span> Joined on {{ Carbon\Carbon::parse(Auth::user()->created_at)->toFormattedDateString() }}</p>
+                    <p><i class="fas fa-envelope"></i>  {{ Auth::user()->email }}</p>
+                    <p><i class="fas fa-calendar-alt"></i> Joined on {{ Carbon\Carbon::parse(Auth::user()->created_at)->toFormattedDateString() }}</p>
         		</div>
     		</div>
     	</div>

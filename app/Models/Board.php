@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class Board extends Model
 {
@@ -12,14 +13,20 @@ class Board extends Model
         'user_id', 'boardTitle', 'boardPrivacyType',
     ];
 
-    public function getUserBoards($user_id)
+    public function getUserBoards()
     {
-    	return $this->where(['user_id' => $user_id,])->get();
+        $boardSection = Auth::user()->section;
+        $public = 'public';
+        return $this->where(['boardPrivacyType' => $boardSection])
+                    ->orWhere(['boardPrivacyType' => $public])->get();
     }
 
-    public function getUserStarredBoards($user_id)
+    public function getUserStarredBoards()
     {
-    	return $this->where(['user_id' => $user_id, 'is_starred' => 1])->orderBy('created_at', 'desc')->get();
+        $boardSection = Auth::user()->section;
+        $public = 'public';
+        return $this->where(['boardPrivacyType' => $boardSection, 'is_starred' => 1])
+                    ->orWhere(['boardPrivacyType' => $public, 'is_starred' => 1])->orderBy('created_at', 'desc')->get();
     }
 
     public function createBoard($input, $user_id)

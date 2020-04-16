@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'ziishaned@gmail.com', 'name' => 'Dingo Project Management Tool'],
+    'from' => ['address' => 'enns.2019@gmail.com', 'name' => 'iTask Admin'],
 
     /*
     |--------------------------------------------------------------------------

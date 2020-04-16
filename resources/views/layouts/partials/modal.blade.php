@@ -1,36 +1,29 @@
+@if (Auth::check())
 <div class="modal fade" id="create-new-board">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title text-center">Create Board</h4>
+                <h4 class="modal-title text-center login-header">Create Board</h4>
             </div>
             <div class="modal-body">
                 <form action="" method="POST" role="form" class="create-board-form">
                     <div class="form-group" id="boardTitleCon">
                         <label for="title" class="control-label">Title</label>
-                        <input type="text" class="form-control" id="boardTitle" name="boardName">
-                    </div>
-                    <div class="form-group">
-                        <h4>Team</h4>
-                        <p>
-                            Teams make sharing and working within a group even easier.
-                            It does't look like you are a member of any teams <a data-toggle="modal" href='#create-team'>Create a team</a>.
-                        </p>
+                        <input type="text" class="form-control user-input" id="boardTitle" name="boardName" placeholder="Title">
                     </div>
                     <div class="form-group" id="boardPrivacyTypeCon">
-                        <p><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> This board will be Private.</p>
-                        <select name="boardPrivacyType" id="boardPrivacyType" class="form-control" required="required">
-                            <option value="private">Private</option>
-                            <option value="team">Team</option>
+                        <p><i class="fas fa-user-secret"></i> Privacy</p>
+                        <select name="boardPrivacyType" id="boardPrivacyType" class="form-control user-input-select" required="required">
                             <option value="public">Public</option>
+                            <option value="{{Auth::user()->section}}">{{Auth::user()->section}}</option>  
                         </select>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="save-board">Save changes</button>
+                <button type="button" class="btn btn-default modal-btn-outline" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary modal-btn" id="save-board">Save changes</button>
             </div>
         </div>
     </div>
@@ -127,6 +120,8 @@
         </div>
     </div>
 </div>
+
+
 <div class="modal fade" id="card-detail">
     <div class="modal-dialog" style="width: 720px;">
         <div class="modal-content">
@@ -134,16 +129,19 @@
                 <div class="modal-header" style="border-bottom: none; padding-bottom: 0px !important;">
                     <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active">
-                            <a href="#general" aria-controls="tab" role="tab" data-toggle="tab">General</a>
+                            <a href="#general" aria-controls="tab" role="tab" data-toggle="tab" class="tab-link">General</a>
                         </li>
                         <li role="presentation">
-                            <a href="#date" aria-controls="tab" role="tab" data-toggle="tab">Date</a>
+                            <a href="#date" aria-controls="tab" role="tab" data-toggle="tab" class="tab-link">Date</a>
                         </li>
                         <li role="presentation">
-                            <a href="#subtasks" aria-controls="tab" role="tab" data-toggle="tab">Subtasks</a>
+                            <a href="#subtasks" aria-controls="tab" role="tab" data-toggle="tab" class="tab-link">Subtasks</a>
                         </li>
                         <li role="presentation">
-                            <a href="#comments" aria-controls="tab" role="tab" data-toggle="tab">Comments</a>
+                            <a href="#comments" aria-controls="tab" role="tab" data-toggle="tab" class="tab-link">Comments</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#attachments" aria-controls="tab" role="tab" data-toggle="tab" class="tab-link">Attach Files</a>
                         </li>
                     </ul>
                 </div>
@@ -161,90 +159,122 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="">Labels</label>
-                                    <input type="text" id="card-tags-input">
+                                    <input type="text" id="card-tags-input" placeholder="Labels">
                                 </div>
                                 <div class="form-group">
                                     <label for="">Color</label>
                                     <select id="card_color">
                                         <option value="">Select a color...</option>
-                                        <option value="61BD4F">Green</option>
-                                        <option value="F2D600">Yellow</option>
-                                        <option value="FFAB4A">Orange</option>
-                                        <option value="EB5A46">Red</option>
-                                        <option value="C377E0">Purple</option>
-                                        <option value="0079BF">Blue</option>
+                                        <option value="22dd86">Green</option>
+                                        <option value="ffee00">Yellow</option>
+                                        <option value="ffb259">Orange</option>
+                                        <option value="ff5e5e">Red</option>
+                                        <option value="d181f0">Purple</option>
+                                        <option value="2da7ed">Blue</option>
                                     </select>
                                 </div>
                             </form>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="date">
-                            <h1>Add due date and Time</h1>
+                            <h2 class="tab-heading">Add due date and time</h2>
                             <hr>
                             <form action="" method="POST" role="form" style="height: 65px;">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <h1 class="label" style="color: #333333; padding-left: 0px; font-size: 16px;">Created at: </h1>
                                         <div class="input-group">
-                                            <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
-                                            <input type='text' class="form-control" id='created-at' aria-describedby="basic-addon1" disabled />
+                                            <span class="input-group-addon" id="basic-addon1"><i class="fas fa-calendar-alt"></i></span>
+                                            <input type='text' class="form-control date-input" id='created-at' aria-describedby="basic-addon1" disabled />
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <h1 class="label" style="color: #333333; padding-left: 0px; font-size: 16px;">Due Date: </h1>
                                         <div class="input-group">
-                                            <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
-                                            <input type='text' class="form-control" data-format="dd-MM-yyyy hh:mm:ss" id='due-date' aria-describedby="basic-addon1"/>
+                                            <span class="input-group-addon" id="basic-addon1"><i class="fas fa-calendar-alt"></i></span>
+                                            <input type='text' class="form-control date-input" data-format="dd-MM-yyyy hh:mm:ss" id='due-date' />
                                         </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
+
                         <div role="tabpanel" class="tab-pane" id="subtasks">
-                            <div class="addSubTaskCon">
-                                <h2>Add subtask</h2>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="task-description-input" required="required">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default" id="submit-task">Add</button>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="row" style="margin-top: 19px; margin-bottom: 19px;">
-                                <div class="col-lg-8 col-lg-offset-2">
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped per-tasks-completed" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
-                                          <span class="show"></span>
-                                        </div>
-                                      </div>
-                                </div>
-                            </div>
-                            <div class="task-list-con frame" style="margin-top: 12px; max-height: 235px; overflow: scroll;"></div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="comments">
-                            <div class="row" style="margin-top: 13px;">
+                            <div class="row">
                                 <div class="col-lg-12">
-                                    <h1 style="font-family: monospace; font-size: 23px; font-weight: 700; margin: 0;">Post a Comment: </h1>
+                                    <h2 class="tab-heading">Add subtask</h2>
+                                    <hr style="margin-top: 5px;">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control date-input" id="task-description-input" required="required" placeholder="Add a new subtask">
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-success btn-add" id="submit-task"><i class="fas fa-plus"></i></button>
+                                            </span>
+                                        </div>
+                                        <div class="row" style="margin-top: 25px; margin-bottom: 19px;">
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-style per-tasks-completed" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%;">
+                                            <span class="show"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="task-list-con frame" style="margin-top: 12px; max-height: 235px; overflow: scroll;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane" id="comments">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h2 class="tab-heading">Post a Comment: </h2>
                                     <hr style="margin-top: 5px;">
                                     <form  method="POST" role="form" role="form">
                                         <div class="row">
                                             <div class="col-lg-10">
                                                 <div class="form-group">
-                                                    <textarea name="adasd" id="comment-input" class="form-control" rows="3" required="required"></textarea>
+                                                    <textarea name="adasd" id="comment-input" class="form-control" rows="5" required="required"></textarea>
                                                 </div>  
                                             </div>
                                             <div class="col-lg-2">
                                                 <div class="form-group">
-                                                    <button class="btn btn-default" id="submit-comment">Submit</button>
+                                                    <button class="btn btn-sucess post-btn" id="submit-comment">Submit</button>
                                                 </div>  
                                             </div>
                                         </div>
                                     </form>
                                     <div class="detailBox">
                                         <div class="actionBox">
-                                            <ul class="commentList frame">
-                                            </ul>
+                                            <ul class="commentList frame"></ul>
                                         </div>
                                     </div>       
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="attachments">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h2 class="tab-heading">Attach Files</h2>
+                                    <hr style="margin-top: 5px;">
+                                    <form action="{{ URL::to('upload/file') }}" method="post" enctype="multipart/form-data" id="uploadfile" >
+                                        <div class="row">
+                                            <div class="col-lg-10">
+                                                <div class="form-group">
+                                                    <input name="file[]" type="file" multiple required>
+                                                </div>  
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="form-group">
+                                                    <input name="_token" type="hidden" id="_token" value="{{ csrf_token() }}" />
+                                                    <input name="card_ID" type="hidden" value="">
+
+                                                    <button class="btn btn-success post-btn" type="submit">Upload</button>
+                                                </div>  
+                                            </div>
+                                        </div>
+                                    </form> 
+                                    
+                                    {{-- Append files here --}}
+                                    <div id="card-shared-files" class="col-md-6">
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -252,11 +282,12 @@
                     </div>
                 </div>
                 <div class="modal-footer">                    
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="save-change">Save Changes</button>
-                    <button type="button" class="btn btn-danger" id="delete-card"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete</button>
+                    <button type="button" class="btn btn-default pull-left modal-btn-outline" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary modal-btn" id="save-change">Save Changes</button>
+                    <button type="button" class="btn btn-danger modal-btn-delete" id="delete-card"><i class="fas fa-trash"></i> Delete</button>
                 </div>            
             </div>
         </div>
     </div>
 </div>
+@endif

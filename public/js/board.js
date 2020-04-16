@@ -28,7 +28,7 @@ $(document).ready(function() {
                                 cardId: cardId
                             },
                             success: function (data) {
-                                console.log(data);
+                                // console.log(data);
                             },
                             error: function (error) {
                                 var response = JSON.parse(error.responseText);
@@ -165,14 +165,14 @@ $(document).ready(function() {
                 var starColor = $(this).css('color');
                 var boardId = $(this).closest('.board-link').attr("data-boardid");
                 var isFavourite;
-                if (starColor == "rgb(255, 255, 255)") {
+                if (starColor == "rgb(179, 179, 179)") {
                     isFavourite = 1;
 
                     $(this).css('color', "#FFEB3B");
                     var boardCon = $(this).closest('.col-lg-3').clone();
                     var boardTitle = $(boardCon).find("h2").text().trim();
                     if ($(".my-fv-board").find('h1.board-starred-heading').length == 0) {
-                        $(".my-fv-board").prepend('<h1 class="board-starred-heading" style="margin-top: 10px;margin-left: 15px;font-weight: 500;font-size: 25px;"><span class="glyphicon glyphicon-star-empty starred-boards" aria-hidden="true"></span> Starred Boards</h1>');
+                        $(".my-fv-board").prepend('<h1 class="board-starred-heading" style="margin-top: 10px;margin-left: 15px;font-weight: 500;font-size: 25px;"><i class="fas fa-star"></i> Starred Boards</h1>');
                     };                   
 
                     if ($(".my-fv-board").find(".boards-col .col-lg-3").length == 0 ) {
@@ -187,7 +187,7 @@ $(document).ready(function() {
                     );
                     that.createActivity(boardId, 'board', 'fav a board');
                 } else {
-                    $(this).css('color', "#FFF");
+                    $(this).css('color', "#b3b3b3");
                     isFavourite = 0;
                     $(".my-fv-board").find(".boards-col .col-lg-3").filter("[data-boardid="+boardId+"]").remove();
                     if ($(".my-fv-board").find(".boards-col .col-lg-3").length == 0 ) {
@@ -227,6 +227,9 @@ $(document).ready(function() {
                 that.deleteList(listId, this);
             });
         },
+
+        
+
         deleteList: function(listId, listTrash) {
             var that = this;
             swal({   
@@ -318,7 +321,7 @@ $(document).ready(function() {
                                     '<label for="' + data.card["id"] + '" class="sub-task-content" data-taskid="' + data.card["id"] + '">' + data.card["task_title"] + '</label>'+
                                 '</div>'+
                                 '<div class="col-lg-1">'+
-                                    '<a href="" class="delete-task" data-taskId="' + data.card["id"] + '"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>'+
+                                    '<a href="" class="delete-task" data-taskId="' + data.card["id"] + '"><i class="fas fa-trash"></i></a>'+
                                 '</div>'+
                             '</div>'+
                         '</div>';
@@ -421,7 +424,6 @@ $(document).ready(function() {
             $.ajax({
                 url: 'update-card-data',
                 type: 'POST',
-                dataType: 'json',
                 data: {
                     cardName: cardName,
                     cardDescription: cardDescription,
@@ -522,7 +524,22 @@ $(document).ready(function() {
                     cardId: cardId
                 },
                 success: function (data) {
+                    $("#card-shared-files").empty();
                     $(document).find("#card-detail").attr("data-cardid", data.card.id);
+
+                    var shared = data.sharedFiles;
+
+                    for(key in shared) {
+                        var value = shared[key];
+
+                    if(value.card_ref == data.card.id) {
+                        $(document).find("#card-shared-files").append(  
+                        '<div><a href="/SharedFiles/'+ value.file_name  +'" target="_blank">'+
+                            '<h6 class="pull-left" style="font-size:0.8em;"><i class="fas fa-paperclip"></i>&nbsp;&nbsp;'+ value.file_name + '</h6>'+
+                        '</a></div>'
+                        );
+                     }
+                    }
 
                     $("#card-detail").find("#card_title_editable").text(data.card.card_title);
                     that.makeEditable("#card_title_editable");
@@ -567,7 +584,7 @@ $(document).ready(function() {
                                     '<label for="' + val.id + '" class="sub-task-content" data-taskid="' + val.id + '">' + val.task_title + '</label>'+
                                 '</div>'+
                                 '<div class="col-lg-1">'+
-                                    '<a href="" class="delete-task" data-taskId="' + val.id + '"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>'+
+                                    '<a href="" class="delete-task" data-taskId="' + val.id + '"><i class="fas fa-trash"></i></a>'+
                                 '</div>'+
                             '</div>'+
                         '</div>';
@@ -802,26 +819,49 @@ $(document).ready(function() {
                     boardPrivacyType: that.params['boardPrivacyType'].val() 
                 },
                 success: function (data) {
-                    $(that.params['createBoardLink']).closest(".col-lg-3").before(
+                    if(data.boardPrivacyType === 'public') {
+                    $(that.params['createBoardLink']).closest(".public-board").before(
                         '<div class="col-lg-3">'+
-                            '<div class="board-link" style="cursor: pointer;" data-boardid="'+data.id+'">'+
+                            '<div class="board-link custom-board" style="cursor: pointer;" data-boardid="'+data.id+'">'+
                                 '<div class="row">'+
                                     '<div class="col-lg-10">'+
                                         '<h2 style="margin-top: 5px;">'+
-                                            '<a href="http://localhost:8000/board?id='+data.id+'" class="board-main-link-con" style="font-size: 20px; color: #FFF;">'+
+                                            '<a href="http://localhost:8000/board?id='+data.id+'" class="board-main-link-con" style="font-size: 20px; color: #154134;">'+
                                                 data.boardTitle +
                                             '</a>'+
                                         '</h2>'+
                                     '</div>'+
                                     '<div class="col-lg-2">'+
                                         '<p style="margin-top: 12px;">'+
-                                            '<a href="#" style="font-size: 20px; color: #FFF;" id="make-fv-board"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>'+
+                                            '<a href="#" style="font-size: 20px; color: #b3b3b3;" id="make-fv-board"><i class="fas fa-star"></i></a>'+
                                         '</p>'+
                                     '</div>'+
                                 '</div>'+
                             '</div>'+
                         '</div>'
                     );
+                    } else {
+                        $(that.params['createBoardLink']).closest(".section-board").before(
+                            '<div class="col-lg-3">'+
+                                '<div class="board-link custom-board" style="cursor: pointer;" data-boardid="'+data.id+'">'+
+                                    '<div class="row">'+
+                                        '<div class="col-lg-10">'+
+                                            '<h2 style="margin-top: 5px;">'+
+                                                '<a href="http://localhost:8000/board?id='+data.id+'" class="board-main-link-con" style="font-size: 20px; color: #154134;">'+
+                                                    data.boardTitle +
+                                                '</a>'+
+                                            '</h2>'+
+                                        '</div>'+
+                                        '<div class="col-lg-2">'+
+                                            '<p style="margin-top: 12px;">'+
+                                                '<a href="#" style="font-size: 20px; color: #b3b3b3;" id="make-fv-board"><i class="fas fa-star"></i></a>'+
+                                            '</p>'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'
+                        );  
+                    }
                     that.params['createNewBoardModal'].modal('hide') 
                     that.params['boardTitle'].val('');
                     that.params['boardTitleCon'].removeClass('has-error');
@@ -849,7 +889,7 @@ $(document).ready(function() {
                     activity_description: activity_description
                 }, 
                 success: function (data) {
-                    console.log("data")
+                    // console.log("data")
                 },
                 error: function(error) {
                     console.log(error);
@@ -865,15 +905,15 @@ $(document).ready(function() {
                 data: data,
                 success: function (data) {
                     $(curentBtnClicked).closest(".bcategory-list").before(
-                        '<div class="bcategory-list" data-list-id="' + data.id + '">'+
-                            '<div class="panel panel-default">'+
+                        '<div class="bcategory-list " data-list-id="' + data.id + '">'+
+                            '<div class="panel panel-default custom-board-page">'+
                                 '<div class="panel-heading" style="border-bottom: 0px; ">'+
                                     '<div class="row">'+
                                         '<div class="col-lg-10">'+
                                             '<h3 class="panel-title board-panel-title editable editable-click" data-pk="' + data.id + '">' + data.list_name + '</h3>'+
                                         '</div>'+
                                         '<div class="col-lg-2">'+
-                                            '<span data-listid="' + data.id + '" class="glyphicon glyphicon-trash delete-list" aria-hidden="true" style="cursor: pointer;"></span>'+
+                                            '<span data-listid="' + data.id + '" class="delete-list" aria-hidden="true" style="cursor: pointer; top: 3px; color: #ff324d !important;"> <i class="fas fa-trash"></i></span>'+
                                         '</div>'+
                                     '</div>'+
                                 '</div>'+
@@ -882,15 +922,16 @@ $(document).ready(function() {
                                         '<div class="card-con ui-sortable" data-listid="' + data.id + '">'+
                                         '</div>'+
                                     '</ul>'+
-                                    '<a href="#" class="show-input-field">Add a card...</a>'+
+                                    '<a href="#" class="show-input-field"><button type="button" class="btn btn-success post-btn"><i class="fas fa-plus"></i></button></a>'+
                                     '<form action="" method="POST" role="form" style="display: none;">'+
                                         '<div class="form-group" id="dynamic-board-input-con" style="margin-bottom: 8px;">'+
-                                            '<textarea name="card-title" class="form-control" rows="3"></textarea>'+
+                                            '<label for="card-title" class="control-label">Add Card</label>'+
+                                            '<textarea name="card-title" class="form-control board-input" rows="3"></textarea>'+
                                             '<input type="hidden" name="list_id" value="' + data.id + '">'+
                                             '<input type="hidden" name="board_id" value="' + data.board_id + '">'+    
                                         '</div>'+
                                         '<div class="form-group" style="margin-bottom: 0px;">'+
-                                            '<button type="submit" class="btn btn-primary" id="saveCard">Save</button> <span class="glyphicon glyphicon-remove close-input-field" aria-hidden="true"></span>'+
+                                            '<button type="submit" class="btn btn-success post-btn" id="saveCard">Save</button><span class="glyphicon close-input-field" aria-hidden="true"><i class="fas fa-times"></i></span>'+
                                         '</div>'+
                                     '</form>'+
                                 '</div>'+
@@ -929,3 +970,44 @@ $(document).ready(function() {
         createBoardLink     :   $('.board-create-link')
     });
 });
+
+
+//uploadFile
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+//uploadFile
+$("#uploadfile").on("submit", function(e) {
+        e.preventDefault();
+        var cardId = $(document).find('#card-detail').attr("data-cardid");
+        var formData = new FormData(this);
+        formData.append('cardID',cardId);
+        var url = $(this).attr('action');
+        $.ajax({
+            url: url, 
+            data: formData,
+            type: 'POST',
+            contentType: false, 
+            cache: false, 
+            processData: false,
+            success: function(data) {
+                $("#uploadfile")[0].reset();
+                swal({
+                    title:'Uploaded Sucessfully',
+                    type:'success',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+                $(".print-msg").find("a").html('');
+                $(".print-msg").css('display','block');
+                $(".print-msg").find("a").append('<li>'+data+'</li>');
+            }
+        });
+
+
+});
+
+//end

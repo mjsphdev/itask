@@ -1,13 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row" style="position: relative; top: 100px;">
-        <div class="col-lg-4 col-md-offset-4">
-            <h1 style="margin-bottom: 25px; font-family: Arvo; font-size: 24px; font-weight: 600; color: #666666; ">Register To Dingo</h1>
-            <form role="form" method="POST" action="{{ url('/register') }}">
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 col-centered">
+            <div class="user-card">
+            <h1 class="login-header">Create an account</h1>
+            <form role="form" class="form-signin" method="POST" action="{{ url('/register') }}">
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <label for="account-email" class="control-label"><span class="glyphicon glyphicon-envelope" aria-hidden="true" style="padding-right: 5px;"></span> E-Mail Address</label>
-                    <input id="account-email" type="email" class="form-control" name="email" value="{{ old('email') }}">
+                    <label for="account-email" class="control-label"> 
+                        E-mail Address
+                    </label>
+                    <input id="account-email" type="email" class="form-control user-input" name="email" value="{{ old('email') }}" placeholder="E-mail Address">
                     @if ($errors->has('email'))
                         <span class="help-block">
                             <strong>{{ $errors->first('email') }}</strong>
@@ -15,8 +19,10 @@
                     @endif
                 </div>
                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                    <label for="user-name" class="control-label"><span class="glyphicon glyphicon-user" aria-hidden="true" style="padding-right: 5px;"></span> Name</label>
-                    <input type="text" id="user-name" class="form-control" name="name" value="{{ old('name') }}">
+                    <label for="user-name" class="control-label"> 
+                        Full Name
+                    </label>
+                    <input type="text" id="user-name" class="form-control user-input" name="name" value="{{ old('name') }}" placeholder="Full Name">
                     @if ($errors->has('name'))
                         <span class="help-block">
                             <strong>{{ $errors->first('name') }}</strong>
@@ -25,8 +31,10 @@
                 </div>
 
                 <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-                    <label for="user-username" class="control-label"><span class="glyphicon glyphicon-user" aria-hidden="true" style="padding-right: 5px;"></span> UserName</label>
-                    <input type="text" id="user-username" class="form-control" name="username" value="{{ old('username') }}">
+                    <label for="user-username" class="control-label">
+                        Username
+                    </label>
+                    <input type="text" id="user-username" class="form-control user-input" name="username" value="{{ old('username') }}" placeholder="Username">
                     @if ($errors->has('username'))
                         <span class="help-block">
                             <strong>{{ $errors->first('username') }}</strong>
@@ -35,9 +43,11 @@
                 </div>
 
                 <div class="form-group{{ $errors->has('section') ? ' has-error' : '' }}">
-                    <label for="user-section" class="control-label"><span class="glyphicon glyphicon-user" aria-hidden="true" style="padding-right: 5px;"></span> Section</label>
-                    <select id="user-section" class="form-control" name="section" value="{{ old('section') }}">
-                       <option disabled selected>Choose</option>
+                    <label for="user-section" class="control-label">
+                        Section
+                    </label>
+                    <select id="user-section" class="user-input-select form-control" name="section" value="{{ old('section') }}">
+                       <option disabled selected>Choose Section</option>
                        <option value="NSIS">NSIS</option>
                        <option value="NAS">NAS</option>
                        <option value="NIEPS">NIEPS</option>
@@ -50,8 +60,10 @@
                 </div>
 
                 <div class="form-group {{ $errors->has('password') ? ' has-error' : '' }}">
-                    <label for="account-password" class="control-label"><span class="glyphicon glyphicon-lock" aria-hidden="true" style="padding-right: 5px;"></span> Password</label>
-                    <input type="password" id="account-password" class="form-control" name="password">
+                    <label for="account-password" class="control-label">
+                        Password
+                    </label>
+                    <input type="password" id="account-password" class="form-control user-input" name="password"  placeholder="Password">
                     @if ($errors->has('password'))
                         <span class="help-block">
                             <strong>{{ $errors->first('password') }}</strong>
@@ -59,8 +71,10 @@
                     @endif
                 </div>
                 <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                    <label for="account-repassword" class="control-label"><span class="glyphicon glyphicon-lock" aria-hidden="true" style="padding-right: 5px;"></span> Confirm Password</label>
-                    <input type="password" id="account-repassword" class="form-control" name="password_confirmation">
+                    <label for="account-repassword" class="control-label">
+                        Confirm password
+                    </label>
+                    <input type="password" id="account-repassword" class="form-control user-input" name="password_confirmation" placeholder="Confirm Password">
                     @if ($errors->has('password_confirmation'))
                         <span class="help-block">
                             <strong>{{ $errors->first('password_confirmation') }}</strong>
@@ -68,14 +82,15 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Register
+                    <button type="submit" class="btn btn-lg  btn-block user-btn">
+                       Sign up
                     </button>
                 </div>
                 <div class="form-group">
-                    Have an account? <a href="{{ url('/login') }}"><u>Login to Dingo account</u>.</a>
+                    <a href="{{ url('/login') }}">Already have an account?</a>
                 </div>
             </form>
+        </div>
         </div>
     </div>
 </div>

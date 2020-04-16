@@ -28,7 +28,7 @@ class UserController extends Controller
     public function getDashboard()
     {
         $boards = $this->board->getUserBoards(Auth::id());
-        $starredBoards = $this->board->getUserStarredBoards(Auth::id());
+        $starredBoards = $this->board->getUserStarredBoards();
 
         return view('user.home', compact('boards', 'starredBoards'));
     }
@@ -100,6 +100,8 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name'                  => 'required|unique:users,name',
+            'username'              => 'required',
+            'section'               => 'required',
             'email'                 => 'required|unique:users,email',
             'password'              => 'required|confirmed',
             'password_confirmation' => 'required',

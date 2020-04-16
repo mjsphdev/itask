@@ -55,7 +55,7 @@ class PasswordController extends Controller
             'token' => $user->token, 
             'email' => $user->email
         ], function($message) use ($user){
-            $message->to($user->email, $user->name)->subject('Dingo - Reset Password');
+            $message->to($user->email, $user->name)->subject('iTask - Reset Password');
         });
 
         return redirect('/')->with('status', 'A reset link been sent to your email address');

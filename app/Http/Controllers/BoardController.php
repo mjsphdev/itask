@@ -14,6 +14,7 @@ use \App\Models\Board;
 use \App\Models\CardTag;
 use \App\Models\BoardList;
 use \App\Models\BoardCard;
+use \App\Models\SharedFiles;
 
 class BoardController extends Controller
 {
@@ -54,14 +55,17 @@ class BoardController extends Controller
      */
     public function getBoardDetail(Request $request)
     {
+        $boardSection = Auth::user()->section;
+        $public = 'public';
         $boardDetail = $this->board->getBoard($request->id);
         $lists = $this->boardList->getBoardList($request->id);
         $cards = json_decode(json_encode($this->boardCard->getBoardCards()), True);
         $cardTaskCount = json_decode(json_encode($this->boardCard->cardTotalTask()), True);
-        $boards = $this->board->getUserBoards(Auth::id());
+        $boards = $this->board->getUserBoards();
         $recentBoards = $this->board->getUserRecentBoards(Auth::id());
+        $sharedFiles = SharedFiles::distinct()->get(['card_ref']);
 
-        return view('user.board', compact('boardDetail', 'lists', 'cards', 'cardTaskCount', 'boards', 'recentBoards'));
+        return view('user.board', compact('boardDetail', 'lists', 'cards', 'cardTaskCount', 'boards', 'recentBoards', 'sharedFiles'));
     }
 
     /**

@@ -4,19 +4,7 @@
 <div class="profile-con" style="padding-left: 10px !important; padding-top: 60px !important; padding-right: 10px; padding-bottom: 0px;">
     @include('layouts.partials.profileintro')
     <div class="container">
-	    <div class="row" style="margin-top: 15px;">
-	    	<div class="col-lg-5 col-lg-offset-3">
-			    <ul class="nav nav-tabs" role="tablist" style="padding-left: 150px;">
-                    <li role="presentation" class="">
-                        <a href="{{ route('user.activity') }}"><span class="glyphicon glyphicon-fire" aria-hidden="true"></span> Activity</a>
-                    </li>
-                    <li role="presentation" @if($page=='profile') class="active" @endif>
-                        <a href="{{ route('user.profile') }}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Profile</a>
-                    </li>	
-                </ul>
-	    	</div>
-	    </div>
-        <div class="row" style="margin-top: 15px;">
+        <div class="row media-activity" style="margin-top: 15px;">
             <div class="col-lg-5 col-lg-offset-3">
                 <form action="" method="POST" role="form">                
                     <div class="form-group">
@@ -31,5 +19,10 @@
             </div>
         </div>
     </div>
+</div>
+<div class="create-board">
+    <h4>
+        <a style="color:#26d684;" href="{{ route('user.activity') }}"><i class="fas fa-chart-line"></i> My Activity</a>
+    </h4>
 </div>
 @endsection

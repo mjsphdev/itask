@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>iTask Management Sytem</title>
-
+    
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/override.css') }}" rel="stylesheet">
@@ -14,11 +14,13 @@
     <link href="{{ asset('css/bootstrap-editable.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/sweetalert.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/magic-check.min.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('css/font-awesome-css/all.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/selectize.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/animation.css') }}" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <script>
         var assetUserImage = "{{ asset('img/user_1.jpg') }}";
     </script>
@@ -31,6 +33,7 @@
       <div class="rect4"></div>
       <div class="rect5"></div>
     </div>
+    
     @include('layouts.partials.modal')
     @include('layouts.partials.navigation')
     @yield('content')
