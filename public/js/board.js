@@ -182,7 +182,7 @@ $(document).ready(function() {
                     $(".my-fv-board").find(".boards-col").prepend(boardCon);
                     $("ul.stared-board-list-con").prepend(
                         '<li style="margin-bottom: 5px;" data-boardid="'+boardId+'">'+
-                            '<a href="http://localhost:8000/board/'+boardId+'" style="color: #393333; padding-left: 0px; line-height: 20px; height: 20px; mar">'+boardTitle+'</a>'+
+                            '<a href="/board/'+boardId+'" style="color: #393333; padding-left: 0px; line-height: 20px; height: 20px; mar">'+boardTitle+'</a>'+
                         '</li>'
                     );
                     that.createActivity(boardId, 'board', 'fav a board');
@@ -826,7 +826,7 @@ $(document).ready(function() {
                                 '<div class="row">'+
                                     '<div class="col-lg-10">'+
                                         '<h2 style="margin-top: 5px;">'+
-                                            '<a href="http://localhost:8000/board?id='+data.id+'" class="board-main-link-con" style="font-size: 20px; color: #154134;">'+
+                                            '<a href="/board?id='+data.id+'" class="board-main-link-con" style="font-size: 20px; color: #154134;">'+
                                                 data.boardTitle +
                                             '</a>'+
                                         '</h2>'+
@@ -847,7 +847,7 @@ $(document).ready(function() {
                                     '<div class="row">'+
                                         '<div class="col-lg-10">'+
                                             '<h2 style="margin-top: 5px;">'+
-                                                '<a href="http://localhost:8000/board?id='+data.id+'" class="board-main-link-con" style="font-size: 20px; color: #154134;">'+
+                                                '<a href="/board?id='+data.id+'" class="board-main-link-con" style="font-size: 20px; color: #154134;">'+
                                                     data.boardTitle +
                                                 '</a>'+
                                             '</h2>'+
